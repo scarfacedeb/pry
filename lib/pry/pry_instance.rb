@@ -155,7 +155,7 @@ class Pry
   #
   def inject_local(name, value, b)
     value = Proc === value ? value.call : value
-    if b.respond_to?(:local_variable_set)
+    if b.respond_to?(:local_variable_set) && RUBY_PLATFORM != "java".freeze
       b.local_variable_set name, value
     else # < 2.1
       begin
